@@ -1,0 +1,38 @@
+[project]
+name = "face-attendance-recognition"
+version = "0.1.0"
+description = "Serviço local de detecção e reconhecimento facial (YuNet + SFace via OpenCV) do MVP face-attendance"
+authors = [{ name = "face-attendance" }]
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    "fastapi (>=0.115,<1.0)",
+    "uvicorn (>=0.30,<1.0)",
+    "pydantic (>=2.8,<3.0)",
+    "pydantic-settings (>=2.4,<3.0)",
+    # OpenCV 4.x: o YuNet 2023mar tem shape fixo e é suportado pelo motor DNN nativo do 4.x.
+    # OpenCV 5.x troca o motor para ONNX Runtime e exige o modelo com shape dinâmico — ver docs/model-licenses.md.
+    "opencv-python-headless (>=4.11,<5.0)",
+    "numpy (>=2.0,<3.0)",
+]
+
+[tool.poetry]
+package-mode = false
+requires-poetry = ">=2.3,<2.4"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3 || ^9.0"
+httpx = ">=0.27,<1.0"
+# Somente para testes com modelos reais: fornece a imagem de domínio público "astronaut" (NASA, Eileen Collins).
+scikit-image = ">=0.24,<1.0"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning:fastapi.testclient", "ignore:Using `httpx`"]
+markers = [
+    "models: testes que carregam os modelos ONNX reais (exigem `npm run models:download`)",
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

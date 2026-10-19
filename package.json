@@ -1,0 +1,45 @@
+{
+  "name": "face-attendance",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MVP local de registro de ponto com reconhecimento facial (React + Express/SQLite + FastAPI/OpenCV)",
+  "license": "UNLICENSED",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "engines": {
+    "node": "24.18.0",
+    "npm": ">=11.16.0 <12"
+  },
+  "packageManager": "npm@11.16.0",
+  "scripts": {
+    "setup": "bash scripts/setup.sh",
+    "dev": "node scripts/dev.mjs",
+    "build": "npm run build -w backend && npm run build -w frontend",
+    "start": "node scripts/dev.mjs --prod",
+    "test": "npm run test:backend && npm run test:frontend && npm run test:recognition",
+    "test:backend": "npm test -w backend",
+    "test:frontend": "npm test -w frontend",
+    "test:recognition": "bash scripts/recognition.sh test",
+    "test:recognition:unit": "bash scripts/recognition.sh test-unit",
+    "typecheck": "npm run typecheck -w backend && npm run typecheck -w frontend",
+    "db:migrate": "npm run db:migrate -w backend",
+    "db:status": "npm run db:status -w backend",
+    "data:retention": "npm run data:retention -w backend",
+    "models:download": "node scripts/download-models.mjs",
+    "models:verify": "node scripts/download-models.mjs --verify-only",
+    "recognition:install": "bash scripts/recognition.sh install",
+    "recognition:dev": "bash scripts/recognition.sh dev",
+    "health": "node scripts/health.mjs",
+    "check:tools": "bash scripts/check-tools.sh",
+    "test:e2e": "cd recognition && poetry run python ../scripts/e2e/smoke.py",
+    "recognition:evaluate": "bash scripts/recognition.sh evaluate"
+  },
+  "allowScripts": {
+    "better-sqlite3@13.0.3": true,
+    "esbuild@0.28.2": true,
+    "@scarf/scarf": false,
+    "fsevents": false
+  }
+}

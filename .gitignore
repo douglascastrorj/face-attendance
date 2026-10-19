@@ -1,0 +1,36 @@
+# Dependências e builds
+node_modules/
+dist/
+*.tsbuildinfo
+.vite/
+coverage/
+
+# Python
+recognition/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Pesos dos modelos (baixados por `npm run models:download`; manifest.json é versionado)
+recognition/models/*.onnx
+
+# Dados locais — banco, biometria, imagens de avaliação
+data/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+recognition/tests/fixtures/private/
+eval-data/
+
+# Configuração local e credenciais
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Logs e SO
+*.log
+.run/
+.DS_Store
